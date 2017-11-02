@@ -5,10 +5,14 @@ int main(void)
 {
 	int c;
 
-	while((c = getchar()) != EOF) {
-		if(c == ' ') {
+	while((c = getchar()) != EOF)
+	{
+		if(c == ' ')
+		{
 			putchar('\n');
-		} else {
+		}
+		else
+		{
 			putchar(c);
 		}
 	}

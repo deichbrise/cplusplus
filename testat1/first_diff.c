@@ -13,8 +13,8 @@ int main(int args, char* argv[])
 		return 1;
 	}
 
-	FILE *file1;
-	FILE *file2;
+	FILE* file1;
+	FILE* file2;
 
 	/*
 	 * Maybe there is a better way of sizing the buffer because line greater than 1024 chars are truncated.
