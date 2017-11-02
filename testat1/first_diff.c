@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define BUFFER_SIZE 1024
+
 int main(int args, char* argv[])
 {
 
@@ -14,13 +16,12 @@ int main(int args, char* argv[])
 	FILE *file1;
 	FILE *file2;
 
-	char *line1 = NULL;
-	size_t len1 = 0;
-	ssize_t read1;
-
-	char *line2 = NULL;
-	size_t len2 = 0;
-	ssize_t read2;
+	/*
+	 * Maybe there is a better way of sizing the buffer because line greater than 1024 chars are truncated.
+	 * For now it is sufficient for solving this task.
+	 * */
+	char buffer1[BUFFER_SIZE];
+	char buffer2[BUFFER_SIZE];
 
 	file1 = fopen(argv[1], "r");
 	file2 = fopen(argv[2], "r");
@@ -33,16 +34,21 @@ int main(int args, char* argv[])
 
 	int lineCount = 1;
 
-	while((read1 = getline(&line1, &len1, file1)) != -1 && (read2 = getline(&line2, &len2, file2)) != -1)
+	while(fgets(buffer1, sizeof(buffer1), file1) != NULL && fgets(buffer2, sizeof(buffer2), file2) != NULL)
 	{
-        if(strcmp(line1, line2) != 0)
+		/* Simply replace the newline character */
+		buffer1[strlen(buffer1) - 1] = '\0';
+		buffer2[strlen(buffer2) - 1] = '\0';
+
+        if(strcmp(buffer1, buffer2) != 0)
 		{
-			printf("Line %i are not equal: %s != %s \n", lineCount, line1, line2);
+			printf("Line %i are not equal: %s != %s \n", lineCount, buffer1, buffer2);
 		}
 
 		lineCount++;
 	}
 
+	/* Do not forget to close files. */
 	fclose(file1);
 	fclose(file2);
 
