@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/testate.dir/testat1/break_words.c.o CMakeFiles/testate.dir/testat1/first_diff.c.o CMakeFiles/testate.dir/testat1/line_mean.c.o CMakeFiles/testate.dir/testat2/easter.c.o CMakeFiles/testate.dir/testat2/triangle_game.c.o  -o testate 
