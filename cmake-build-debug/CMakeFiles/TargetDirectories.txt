@@ -1,3 +1,0 @@
-/home/pstammer/Dokumente/uni/c++/testate/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/pstammer/Dokumente/uni/c++/testate/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/pstammer/Dokumente/uni/c++/testate/cmake-build-debug/CMakeFiles/testate.dir
