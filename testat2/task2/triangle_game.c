@@ -218,6 +218,17 @@ int isAligned(int board[], int move[]) {
 
 /* Return 1 if the move is valid on this board, otherwise return 0. */
 int valid_move(int *board, int *move) {
+    if(
+            move[0] >= BOARD_DEPTH * BOARD_DEPTH
+            || move[1] >= BOARD_DEPTH * BOARD_DEPTH
+            || move[2] >= BOARD_DEPTH * BOARD_DEPTH
+               || move[0] < 0
+               || move[1] < 0
+               || move[2] < 0
+            )
+    {
+        return 0;
+    }
     int result = 0;
     if (isOnBoard(board, move) == 1 && isEmptyOnlyAtEnd(board, move) == 1 && isAligned(board, move) == 1) {
         result = 1;
@@ -253,26 +264,41 @@ void unmake_move(int board[], int move[]) {
  * solution in reverse order.
  */
 int solve(int board[]) {
-    if (nentries(board) == 1) {
+    if (nentries(board) == 1)
+    {
         return 1;
     }
 
-    int board_size = BOARD_DEPTH * BOARD_DEPTH;
-    for (int from = 0; from < board_size; from++) {
-        for (int over = 0; over < board_size; over++) {
-            for (int to = 0; to < board_size; to++) {
-                int move[] = {from, over, to};
+    for(int i = 0; i < BOARD_DEPTH; i++)
+    {
+        for(int k = 0; k <= i; k++)
+        {
+            int pos = i * BOARD_DEPTH + k;
+            int moves[6][3] = {
+                    {pos, pos + 1, pos + 2},
+                    {pos, pos - 1, pos - 2},
+                    {pos, pos + 5, pos + 10},
+                    {pos, pos + 6, pos + 12},
+                    {pos, pos - 5, pos - 10},
+                    {pos, pos - 6, pos - 12}
+            };
 
-                if (valid_move(board, move)) {
+            for(int move = 0; move < 6; move++)
+            {
+                if (valid_move(board, moves[move]))
+                {
 
-                    make_move(board, move);
+                    make_move(board, moves[move]);
 
-                    if (solve(board) == 1) {
-                        printf("Move from %d over %d to %d. \n", index_to_original(from), index_to_original(over),
-                               index_to_original(to));
+                    if (solve(board) == 1)
+                    {
+                        printf("Move from %d over %d to %d. \n", index_to_original(moves[move][0]), index_to_original(moves[move][1]),
+                               index_to_original(moves[move][2]));
                         return 1;
-                    } else {
-                        unmake_move(board, move);
+                    }
+                    else
+                    {
+                        unmake_move(board, moves[move]);
                     }
                 }
             }
